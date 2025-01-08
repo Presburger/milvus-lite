@@ -135,21 +135,6 @@ endif()
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/pb)
 
-execute_process(
-  COMMAND git diff --quiet
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/thirdparty/milvus
-  RESULT_VARIABLE CHECK_RESULT)
-
-if(${CHECK_RESULT} EQUAL 0)
-  message("Apply milvus patch...")
-  execute_process(
-    COMMAND git apply ${CMAKE_SOURCE_DIR}/thirdparty/milvus.patch
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/thirdparty/milvus
-    OUTPUT_VARIABLE result)
-else()
-  message("Milvus not need applying patch...")
-endif()
-
 add_library(
   milvus_proto STATIC
   "${CMAKE_SOURCE_DIR}/src/proto/plan.proto"
